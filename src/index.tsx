@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 
 export const store = createStore(reducerCombined)
+
 const App = () => (
     <div style={{ height: "100%", width: "100%" }}>
         <Route exact path="/" component={Home} key="home" />

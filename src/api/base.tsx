@@ -1,12 +1,11 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 
-const instance = axios.create({
+const instance:AxiosInstance = axios.create({
     baseURL: 'http://localhost:54761/Home',
     // timeout: 5000,
-  
 });
 
-export const makeRequest = (type, path, body, callback) => {
+export const makeRequest = (type:keyof AxiosInstance, path:string, body:Request, callback:Function) => {
     instance[type](path, body)
         .then(function (response) {
             callback(response)

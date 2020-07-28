@@ -1,10 +1,14 @@
 import { store } from "../../../index"
+import { Action } from "redux"
+import { ReducerState } from "react"
+import { Location } from "./Location.interface"
 
 
-export function setOriginList(NewLoadState) {
-    let options = []
-    NewLoadState.map(function (val, i) {
-        var item = {
+export function setOriginList(NewLoadState:number[]) {
+
+    let options:Location[] = []
+    NewLoadState.map(function (val:Locaiton, i:number) {
+        let item:Location = {
             value: val.id,
             label: val.name
         }
