@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import { connect } from "react-redux";
 import { Location } from "../../redux/actions/Locations/Location.interface";
-class Dropdown extends React.Component<{Locations:Location}> {
+class Dropdown extends React.Component<{Locations:Location[]}> {
 
     constructor(props) {
         super(props)

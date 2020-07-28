@@ -7,7 +7,7 @@ import { Location } from "./Location.interface"
 export function setOriginList(NewLoadState:number[]) {
 
     let options:Location[] = []
-    NewLoadState.map(function (val:Locaiton, i:number) {
+    NewLoadState.map(function (val:any, i:number) {
         let item:Location = {
             value: val.id,
             label: val.name
