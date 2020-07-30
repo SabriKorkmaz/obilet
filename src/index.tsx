@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import Home from "./pages/home"
-import Detail from "./pages/detail"
+import Home from "./routes/home"
+import Detail from "./routes/detail"
 import reducerCombined from "./redux/reducers"
 import {
     Route,

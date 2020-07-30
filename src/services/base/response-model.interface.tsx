@@ -1,4 +1,4 @@
-export interface ResponseBase<T>{
+export interface ResponseModel<T>{
     data:T
     status:string;
     message:string;

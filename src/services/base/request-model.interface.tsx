@@ -1,4 +1,4 @@
-export interface RequestBase<T>{
+export interface RequestModel<T>{
 data:T;
 deviceSession:string;
 date:string;

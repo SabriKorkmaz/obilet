@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { getJourneys } from "../../api/detail"
+import { getJourneys } from "../../services/detail"
 import JourneyCart from "../../components/journey-cart"
 import {
   Link

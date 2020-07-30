@@ -7,7 +7,7 @@ import {
   Link
 } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
-import { getLocations } from '../../api/home';
+import { getLocations } from '../../services/home';
 import * as LocationsActions from "../../redux/actions/Locations/Locations"
 
 
