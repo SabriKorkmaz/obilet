@@ -1,27 +1,19 @@
-import { observable, action, computed } from "mobx";
+import { observable, action } from "mobx";
+import { LocationModel } from "src/services/models/location-model.interface";
 export class MainStore {
-  @observable origins:List
-  @observable destinations: Moment = moment();
-  @observable selectedDate: Moment = moment();
+  @observable origins:LocationModel[] = []
+  @observable destinations:LocationModel[] = []
 
   @action
-  changeDate(startDate: Moment, endDate: Moment) {
-    this.startDate = startDate;
-    this.endDate = endDate;
+  setOrigins(origins:LocationModel[]) {
+    this.origins = origins;
   }
 
-  @computed get startDateFormatted() {
-    return this.startDate.format('DD MMMM');
-  }
 
-  @computed get endDateFormatted() {
-    return this.endDate.format('DD MMMM');
+  @action
+  setDestinations(destinations:LocationModel[]) {
+    this.destinations = destinations;
   }
-
-  @computed get startEndDiff() {
-    return this.endDate.diff(this.startDate, 'day') + 1; // Include Start Date
-  }
-
   // @action
   // getList() {
   //   this.loading = true;
@@ -37,5 +29,5 @@ export class MainStore {
   // }
 };
 
-const dateStore = new DateStore;
-export default dateStore;
+const mainStore = new MainStore;
+export default mainStore;
