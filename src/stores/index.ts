@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import { LocationModel } from "src/services/models/location-model.interface";
+import { LocationModel } from "./../services/models/location-model.interface";
 export class MainStore {
   @observable origins:LocationModel[] = []
   @observable destinations:LocationModel[] = []

@@ -1,12 +1,12 @@
 import * as React from "react";
 import Select from "react-select";
-import * as style from "./style.css";
+import * as style from "./style.scss";
 import { IDropdownProps, IDropdownState } from "./interface";
 export default class Dropdown extends React.Component<IDropdownProps, IDropdownState> {
   constructor(props: IDropdownProps) {
     super(props);
     this.state = {
-      selected: 0,
+      selected: 0, 
     };
   }
   componentDidMount() {}

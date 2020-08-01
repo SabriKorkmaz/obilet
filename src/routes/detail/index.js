@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import { getJourneys } from "../../services/detail";
-import { inject, observer } from "../../../node_modules/mobx-react";
 import JourneyCart from "../../components/journey-cart";
 import { Link } from "react-router-dom";
 import trLocale from "moment/locale/tr";
 import moment from "moment";
 import * as style from "./style.scss";
+import MainStore from "../../stores/index"
+import { inject, observer } from "mobx-react-lite";
 
-@observer
 class Detail extends Component {
   constructor(props) {
     super(props);
@@ -65,4 +64,4 @@ class Detail extends Component {
 
 
 
-export default Detail;
+export default observer(Detail);

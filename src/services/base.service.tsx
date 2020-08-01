@@ -1,7 +1,7 @@
 import Axios, { AxiosInstance } from "axios";
 import { ResponseModel } from "./base/response-model.interface";
 import { BaseModel } from "./base/base-model.interface";
-import { SessionStorageUtil } from "src/utils/session-storage.util";
+import { SessionStorageUtil } from "./../utils/session-storage.util";
 
 export abstract class BaseService {
   private static readonly baseUrl = "http://localhost:54761/Home";
@@ -11,7 +11,7 @@ export abstract class BaseService {
   static async initAxios() {
     if (this.axios) return;
 
-    let sessionId = SessionStorageUtil.getItem(this.sessionStorageKey);
+    let sessionId = SessionStorageUtil.getItem(this.sessionStorageKey); 
     let deviceId = SessionStorageUtil.getItem(this.deviceStorageKey);
 
     if (!sessionId && !deviceId) {
