@@ -3,10 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.11.0",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-proposal-decorators": "^7.10.5",
-    "@babel/preset-env": "^7.11.0",
     "@types/jest": "^26.0.7",
     "@types/node": "^14.0.26",
     "@types/react": "^16.9.43",
@@ -44,25 +42,14 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "babel": {
-    "plugins": [
-      [
-        "@babel/plugin-proposal-decorators",
-        {
-          "legacy": true
-        }
-      ]
-    ],
-    "presets": [
-      "react-app"
-    ]
-  },
   "eslintConfig": {
     "extends": "react-app"
   },
   "browserslist": [
     ">0.2%",
     "not dead",
+    "not ie <= 11",
+    "not op_mini all",
     "not ie <= 11",
     "not op_mini all"
   ]
