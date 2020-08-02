@@ -46,3 +46,11 @@
   justify-content: "space-between";
   max-width: "300px";
 }
+.flex {
+  display: "flex";
+  flex-direction: "column";
+}
+.widthFixed {
+  max-width: "300px";
+  font-size: 22;
+}

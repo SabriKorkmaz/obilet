@@ -1,9 +1,9 @@
-import { BaseModel } from "../base/base-model.interface";
-export interface JourneyModel extends BaseModel{
+import { EntityModel } from "./entity-model.interface";
+export interface JourneyModel extends EntityModel{
     departure:string;
-    originId:string;
-    destinationId:string;
-    date:string;
+    originId:number;
+    destinationId:number;
+    date:Date;
     arrival:string;
     price:string;
     currency:string;

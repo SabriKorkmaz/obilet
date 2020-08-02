@@ -1,10 +1,9 @@
-import { BaseModel } from "../base/base-model.interface";
-
-export interface LocationModel extends BaseModel{
+import { EntityModel } from "./entity-model.interface";
+export interface LocationModel extends EntityModel{
     departure:string;
     arrival:string;
     price:string;
     currency:string;
     origin:string;
     destination:string;
-}
+} 

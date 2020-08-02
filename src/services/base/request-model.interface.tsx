@@ -1,6 +1,4 @@
-export interface RequestModel<T>{
-data:T;
+export interface RequestModel{
 deviceSession:string;
-date:string;
 language:string;
 }

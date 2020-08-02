@@ -1,17 +1,17 @@
 import Axios, { AxiosInstance } from "axios";
 import { ResponseModel } from "./base/response-model.interface";
 import { BaseModel } from "./base/base-model.interface";
-import { SessionStorageUtil } from "./../utils/session-storage.util";
+import { SessionStorageUtil } from "../utils/session-storage.util";
 
 export abstract class BaseService {
-  private static readonly baseUrl = "http://localhost:54761/Home";
+  private static readonly baseUrl = "http://localhost:54761/";
   private static axios?: AxiosInstance;
   private static readonly sessionStorageKey: string = "session-token";
   private static readonly deviceStorageKey: string = "device-token";
   static async initAxios() {
     if (this.axios) return;
 
-    let sessionId = SessionStorageUtil.getItem(this.sessionStorageKey); 
+    let sessionId = SessionStorageUtil.getItem(this.sessionStorageKey);
     let deviceId = SessionStorageUtil.getItem(this.deviceStorageKey);
 
     if (!sessionId && !deviceId) {
@@ -24,7 +24,6 @@ export abstract class BaseService {
         deviceId: deviceId,
       },
       baseURL: this.baseUrl,
-      /* other custom settings */
     });
   }
 
@@ -34,15 +33,10 @@ export abstract class BaseService {
   ): Promise<ReturnType[]> {
     try {
       const response = await Axios!.post(this.baseUrl + apiUrl, request);
-      const data = response.data as ResponseModel<any[]>;
-      if (response.status == 200) {
-        if (data.data.length) {
-          return data.data;
-        } else {
-          return [];
-        }
+      if (response.data.Data.length) {
+        return response.data.Data;
       } else {
-        throw Error("Error occured");
+        return [];
       }
     } catch (error) {
       throw error;
