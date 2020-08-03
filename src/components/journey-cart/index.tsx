@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as style from "./style.scss";
+import styles from "./style.module.css";
 import { IJourneyCardProps } from "./interface";
 
 export default class JourneyCart extends React.Component<IJourneyCardProps> {
@@ -8,26 +8,26 @@ export default class JourneyCart extends React.Component<IJourneyCardProps> {
   }
   render() {
     return (
-      <div style={style.listHolder} className="list-holder">
-        <div style={style.listItem} className="list-item">
-          <div style={style.itemTop} className="item-top">
-            <div style={style.itemTime} className="item-time">
-              <div className="item-from">
+      <div className={styles.listHolder} >
+        <div className={styles.listItem} >
+          <div className={styles.itemTop}>
+            <div className={styles.itemTime} >
+              <div >
                 <h5>Kalkış</h5>
                 <h4>{this.props.departureTime}</h4>
               </div>
-              <div className="item-to">
+              <div >
                 <h5>Varış</h5>
                 <h4>{this.props.arrivalTime}</h4>
               </div>
             </div>
-            <div className="item-price">
+            <div >
               <h4>
                 {this.props.price} - {this.props.currency}
               </h4>
             </div>
           </div>
-          <div className="item-bot">
+          <div >
             <h3>
               {this.props.origin} - {this.props.destination}
             </h3>

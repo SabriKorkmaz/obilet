@@ -9,6 +9,8 @@ class MainStore {
 
   @observable selectedOriginId: number = 0;
   @observable selectedDestinationId: number = 0;
+  @observable selectedOrigin: Partial<LocationModel> ={};
+  @observable selectedDestination:Partial<LocationModel> ={};
   @observable originList: LocationModel[] = [];
   @observable destinationList: LocationModel[] = [];
   @observable departureDate: Date = new Date();
@@ -25,6 +27,14 @@ class MainStore {
   @computed
   get journeys() {
     return this.journeyList;
+  }
+  @computed
+  get origin(){
+    return this.selectedOrigin
+  }
+  @computed
+  get destination(){
+    return this.selectedDestination
   }
 
   @computed
@@ -51,10 +61,12 @@ class MainStore {
   @action
   setSelectedOrigin(id: number) {
     this.selectedOriginId = id;
+    this.selectedOrigin = toJS(this.originList).find(k=>k.id == id) as LocationModel
   }
   @action
   setSelectedDestination(id: number) {
     this.selectedDestinationId = id;
+    this.selectedDestination = toJS(this.originList).find(k=>k.id == id) as LocationModel
   }
   @action
   setDepartureDate(date: Date) {

@@ -1,4 +1,4 @@
 export interface IErrorProps{
-  status?:string;
+  status?:boolean;
   text:string; 
 }

@@ -2,8 +2,7 @@ export interface IDropdownProps {
   items?: IDropdownItem[],
   placeHolder: string,
   label:string;
-  cacheKey?:string;
-  selectedId?:number;
+  value?:IDropdownItem;
   handleChange?:(param:any)=>void
   handleInputChange?:(param:any)=>void
 }

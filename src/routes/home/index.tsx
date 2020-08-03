@@ -2,25 +2,25 @@ import React from "react";
 import Dropdown from "../../components/dropdown";
 import Error from "../../components/error";
 import DatePicker from "react-datepicker";
-import { Link } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
-import * as style from "./style.scss";
+import styles from "./style.module.css";
 import { observer } from "mobx-react";
 import MainStore from "../../stores/index";
 import { LocationMapper } from "../../utils/location-mapper.util";
 import { IDropdownItem } from "../../components/dropdown/interface";
 import { IHomeState } from "./interface";
-
+import { Redirect } from "react-router-dom";
+import { HomeHelper } from "./home.helper";
 @observer
 export class Home extends React.Component<{}, IHomeState> {
   constructor(props: any) {
     super(props);
+    this.state = { redirect: false, error: false };
   }
-  
-  get origin() {
+  get origins() {
     return LocationMapper.mapToDropdownItem(MainStore.origins);
   }
-  get destination() {
+  get destinations() {
     return LocationMapper.mapToDropdownItem(MainStore.destinations);
   }
   get departureDate() {
@@ -30,6 +30,26 @@ export class Home extends React.Component<{}, IHomeState> {
     let tomorrow = new Date();
     tomorrow.setDate(new Date().getDate() + 1);
     return tomorrow;
+  }
+  get isValid() {
+    this.setState({ error: false });
+    return (
+      MainStore.departureDate &&
+      MainStore.selectedDestinationId &&
+      MainStore.selectedOriginId
+    );
+  }
+  get destination() {
+    return {
+      label: MainStore.destination.name,
+      value: MainStore.destination.id,
+    } as IDropdownItem;
+  }
+  get origin() {
+    return {
+      label: MainStore.origin.name,
+      value: MainStore.origin.id,
+    } as IDropdownItem;
   }
   setOrigin = (selected: IDropdownItem) => {
     if (selected) {
@@ -47,49 +67,61 @@ export class Home extends React.Component<{}, IHomeState> {
   setDate = (date: Date) => {
     MainStore.setDepartureDate(date);
   };
+
   changeTargets = () => {
     let origin = MainStore.selectedOriginId;
     let destination = MainStore.selectedDestinationId;
     MainStore.setSelectedDestination(origin);
     MainStore.setSelectedOrigin(destination);
   };
+  search = () => {
+    if (!this.isValid) {
+      this.setState({ error: true });
+      return;
+    }
+    HomeHelper.setStorage(this.origin, this.destination, this.departureDate);
+    MainStore.getJourneys();
+    this.setState({ redirect: true });
+  };
   async componentDidMount() {
     await MainStore.getLocations();
-  }
-  async componentWillUnmount(){
-    await MainStore.getJourneys()
+    let storage = await HomeHelper.checkStorage();
+    if (storage) {
+      MainStore.setSelectedDestination(storage.destination.value);
+      MainStore.setSelectedOrigin(storage.origin.value);
+      MainStore.setDepartureDate(storage.date);
+    }
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to="/detail" />;
+    }
     return (
-      <div style={style.container}>
-        <div style={style.containerSection} />
-        <div style={style.dropdownSection} className="dropdown-section">
-          <div style={style.dropdownHolder}>
-            <Dropdown
-              cacheKey="origin"
-              handleChange={this.setOrigin}
-              label="Nereden"
-              items={this.origin}
-              placeHolder="Seçiniz"
-            />
-            <button onClick={this.changeTargets} style={style.turnButton}>
-              Çevir
-            </button>
-            <Dropdown
-              cacheKey="destination"
-              label="Nereye"
-              handleChange={this.setDestination}
-              items={this.destination}
-              placeHolder="Seçiniz"
-            />
-          </div>
-          <div style={style.calenderSection} className="calender-section">
+      <div className={styles.container}>
+        <div className={styles.containerSection} />
+        <div className={styles.dropdownSection}>
+          <Dropdown
+            handleChange={this.setOrigin}
+            label="Nereden"
+            items={this.origins}
+            value={this.origin}
+            placeHolder="Seçiniz"
+          />
+          <Dropdown
+            label="Nereye"
+            value={this.destination}
+            handleChange={this.setDestination}
+            items={this.destinations}
+            placeHolder="Seçiniz"
+          />
+          <button onClick={this.changeTargets}>Çevir</button>
+          <div className={styles.calenderSection}>
             <DatePicker
               selected={this.departureDate}
               onChange={this.setDepartureDate}
             />
-            <div style={style.flex} className="calender-buttons">
+            <div className={styles.flex}>
               <button
                 onClick={() => {
                   this.setDate(new Date());
@@ -106,16 +138,13 @@ export class Home extends React.Component<{}, IHomeState> {
               </button>
             </div>
           </div>
-          <Link
-            to="Detail"
-            style={style.widthFixed}
-            className="btn btn-default"
-          >
-            Bileti Bul
-          </Link>
+          <button onClick={this.search}>Bileti Bul</button>
         </div>
         <div className="text-area">
-          <Error text="Geçerli tarih için seçim yapılamaz" />
+          <Error
+            status={this.state.error}
+            text="Belirtilen parametreler ile seçim yapılamaz"
+          />
         </div>
       </div>
     );
