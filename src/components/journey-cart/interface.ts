@@ -1,6 +1,6 @@
 export interface IJourneyCardProps {
-  departureTime?: string;
-  arrivalTime?: string;
+  departureTime?: Date;
+  arrivalTime?: Date;
   price?:string;
   currency?:string;
   origin?:string;

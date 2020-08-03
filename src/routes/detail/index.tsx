@@ -23,7 +23,9 @@ class Detail extends React.Component {
             return (
               <JourneyCart
                 price={val.journey["internet-price"]}
+                departureTime={val.journey.departure}
                 currency={val.journey.currency}
+                arrivalTime={val.journey.arrival}
                 origin={val.journey.origin}
                 destination={val.journey.destination}
                 key={i}

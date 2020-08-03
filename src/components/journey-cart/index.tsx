@@ -6,6 +6,15 @@ export default class JourneyCart extends React.Component<IJourneyCardProps> {
   constructor(props: IJourneyCardProps) {
     super(props);
   }
+
+  get departureDate(){
+    let date = new Date(this.props.departureTime!)
+    return `${date.getHours()}:${date.getMinutes()<10?'0':'' + date.getMinutes()}` 
+  }
+  get arrivalDate(){
+    let date = new Date(this.props.arrivalTime!)
+    return `${date.getHours()}:${date.getMinutes()<10?'0':'' + date.getMinutes()}` 
+  }
   render() {
     return (
       <div className={styles.listHolder} >
@@ -14,11 +23,11 @@ export default class JourneyCart extends React.Component<IJourneyCardProps> {
             <div className={styles.itemTime} >
               <div >
                 <h5>Kalkış</h5>
-                <h4>{this.props.departureTime}</h4>
+                <h4>{this.departureDate}</h4>
               </div>
               <div >
                 <h5>Varış</h5>
-                <h4>{this.props.arrivalTime}</h4>
+                <h4>{this.arrivalDate}</h4>
               </div>
             </div>
             <div >
